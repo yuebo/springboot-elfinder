@@ -6,7 +6,7 @@
     <groupId>cn.kong</groupId>
     <artifactId>elfinder-web</artifactId>
     <version>1.0</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <name>elfinder-web</name>
     <description>A web file manager system demo base on spring boot </description>
@@ -15,7 +15,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.9.RELEASE</version>
+        <version>2.5.10</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -50,6 +50,10 @@
             <version>2.4.7</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
     </dependencies>
 
 
@@ -66,25 +70,6 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <version>1.0.0</version>
-                <configuration>
-                    <imageName>${project.name}:${project.version}</imageName>
-                    <dockerDirectory>src/main/docker</dockerDirectory>
-                    <resources>
-                        <resource>
-                            <targetPath>/</targetPath>
-                            <directory>${project.build.directory}</directory>
-                            <include>${project.build.finalName}.jar</include>
-                        </resource>
-                    </resources>
-                    <dockerHost>https://192.168.99.100:2376</dockerHost>
-                    <dockerCertPath>D:\docker\machines\kong</dockerCertPath>
                 </configuration>
             </plugin>
         </plugins>

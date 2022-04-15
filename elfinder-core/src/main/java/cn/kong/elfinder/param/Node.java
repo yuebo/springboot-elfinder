@@ -4,7 +4,7 @@ public class Node {
     private String source;
     private String alias;
     private String path;
-    private Boolean _default;
+//    private Boolean _default=true;
     private String locale;
     private Constraint constraint;
 
@@ -32,13 +32,13 @@ public class Node {
         this.path = path;
     }
 
-    public Boolean get_default() {
-        return _default;
-    }
-
-    public void set_default(Boolean _default) {
-        this._default = _default;
-    }
+//    public Boolean get_default() {
+//        return _default;
+//    }
+//
+//    public void set_default(Boolean _default) {
+//        this._default = _default;
+//    }
 
     public String getLocale() {
         return locale;
