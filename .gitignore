@@ -1,7 +1,9 @@
-/target/
+HELP.md
+target/
 !.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
 
-### STS ###
 .apt_generated
 .classpath
 .factorypath
@@ -10,25 +12,18 @@
 .springBeans
 .sts4-cache
 
-### IntelliJ IDEA ###
 .idea
 *.iws
 *.iml
 *.ipr
 
-### NetBeans ###
 /nbproject/private/
-/build/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
-/.idea/
-/.mvn/
-/mvnw
-/mvnw.cmd
-/elfinder-core/elfinder-core.iml
-/spring-web/spring-web.iml
-/spring-web/target/
-/elfinder-core/target/
-/spring-elfinder.iml
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+.vscode/

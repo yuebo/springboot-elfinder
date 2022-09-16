@@ -3,14 +3,27 @@ server:
     uri-encoding: UTF-8
   port: 8080
   servlet:
-    context-path: /webfile
+    context-path: /weblog
     encoding:
       force: true
       charset: utf-8
       enabled: true
+    session:
+      timeout: 1440m
 
-
-
+job:
+  archive:
+    enabled: ${JOB_ENABLED:false}
+    cron: "0 0 1 * * ?"
+    days: 7
+    files:
+      - ${WEBLOG_PATH:/opt/logs}
+  cleanup:
+    enabled: ${JOB_ENABLED:false}
+    cron: "0 10 1 * * ?"
+    days: 30
+    files:
+      - ${ARCHIVE_PATH:/opt/archive}
 
 file-manager:
   thumbnail:
@@ -18,19 +31,37 @@ file-manager:
   volumes:
     - Node:
       source: fileSystem # 暂时只支持本地文件系统
-      alias: 临时目录 # 目录别名
-      path: /tmp/app # 映射目录
+      alias: 容器日志 # 目录别名
+      path: ${WEBLOG_PATH:/opt/logs} # 映射目录
+      locale:
+      constraint:
+        locked: false # 文件夹是否锁定
+        readable: true # 是否可读
+        writable: false # 是否可写
+    - Node:
+      source: fileSystem # 暂时只支持本地文件系统
+      alias: 临时文件 # 目录别名
+      path: ${UPLOAD_PATH:/tmp/upload} # 映射目录
       locale:
       constraint:
         locked: false # 文件夹是否锁定
         readable: true # 是否可读
         writable: true # 是否可写
+    - Node:
+      source: fileSystem # 暂时只支持本地文件系统
+      alias: 归档文件 # 目录别名
+      path: ${ARCHIVE_PATH:/opt/archive} # 映射目录
+      locale:
+      constraint:
+        locked: false # 文件夹是否锁定
+        readable: true # 是否可读
+        writable: false # 是否可写
 
 spring:
   security:
     user:
-      name: user
-      password: password
+      name: ${WEBLOG_USERNAME:guest}
+      password: ${WEBLOG_PASSWORD:password}
   servlet:
     multipart:
       max-request-size: 200MB

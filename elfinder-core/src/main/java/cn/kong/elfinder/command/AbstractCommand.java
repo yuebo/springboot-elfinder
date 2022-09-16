@@ -113,20 +113,21 @@ public abstract class AbstractCommand implements ElfinderCommand {
 
     protected Object[] buildJsonFilesArray(HttpServletRequest request, Collection<VolumeHandler> list) throws IOException {
 
-        ExecutorService executor = Executors.newCachedThreadPool();
+//        ExecutorService executor = Executors.newCachedThreadPool();
         CountDownLatch latch = new CountDownLatch(list.size());
         List<Map<String, Object>> jsonFileList = new ArrayList<>();
 
         for (VolumeHandler itemHandler : list) {
-            executor.execute(new Task(jsonFileList,request,itemHandler,latch));
+//            executor.execute(new Task(jsonFileList,request,itemHandler,latch));
+            new Task(jsonFileList,request,itemHandler,latch).run();
         }
 
-        try {
-            latch.await();
-            executor.shutdown();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            latch.await();
+//            executor.shutdown();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 
         return jsonFileList.toArray();
     }
